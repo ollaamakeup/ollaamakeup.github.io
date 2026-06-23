@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ollá Makeup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF8F5;
+      --nude: #E8DDD0;
+      --warm-tan: #C9B49A;
+      --dark: #2C2520;
+      --mid: #7A6A5E;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--nude);
+    }
+
+    .nav-logo {
+      font-family: 'Gilda Display', serif;
+      font-size: 26px;
+      font-weight: 300;
+      
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--mid);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--dark); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,180,154,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-tan);
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(64px, 10vw, 120px);
+      font-weight: 300;
+      
+      line-height: 0.95;
+      color: var(--dark);
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-title span {
+      display: block;
+      font-style: normal;
+      font-size: 0.42em;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mid);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      margin-top: 16px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--mid);
+      max-width: 340px;
+      line-height: 1.8;
+      margin-bottom: 52px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--mid);
+      transform: translateY(-1px);
+    }
+
+    .hero-line {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--warm-tan));
+      margin: 0 auto;
+      margin-top: 64px;
+    }
+
+    /* USLUGE */
+    .section {
+      padding: 100px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-tan);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 300;
+      
+      color: var(--dark);
+      margin-bottom: 56px;
+      line-height: 1.1;
+    }
+
+    .service-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--nude);
+    }
+
+    .service-card:first-of-type {
+      border-top: 1px solid var(--nude);
+    }
+
+    .service-name {
+      font-family: 'Gilda Display', serif;
+      font-size: 26px;
+      font-weight: 300;
+      
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .service-desc {
+      font-size: 13px;
+      color: var(--mid);
+      letter-spacing: 0.04em;
+    }
+
+    .service-price {
+      font-family: 'Gilda Display', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--warm-tan);
+      white-space: nowrap;
+      margin-left: 24px;
+    }
+
+    /* ZAKAZIVANJE */
+    .booking-section {
+      background: var(--dark);
+      padding: 100px 24px;
+    }
+
+    .booking-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .booking-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-tan);
+      margin-bottom: 16px;
+    }
+
+    .booking-title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 300;
+      
+      color: var(--cream);
+      margin-bottom: 20px;
+    }
+
+    .booking-sub {
+      font-size: 14px;
+      color: var(--warm-tan);
+      line-height: 1.8;
+      margin-bottom: 52px;
+      opacity: 0.85;
+    }
+
+    /* CALENDAR */
+    .calendar-wrap {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+
+    .cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .cal-month {
+      font-family: 'Gilda Display', serif;
+      font-size: 22px;
+      
+      color: var(--cream);
+      font-weight: 300;
+    }
+
+    .cal-nav {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--cream);
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+    }
+
+    .cal-nav:hover { border-color: var(--warm-tan); }
+
+    .cal-days-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .cal-day-name {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-tan);
+      text-align: center;
+      padding: 4px 0;
+      opacity: 0.7;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-cell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: rgba(250,248,245,0.5);
+      cursor: default;
+    }
+
+    .cal-cell.current-month {
+      color: var(--cream);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .cal-cell.current-month:hover:not(.taken):not(.today) {
+      background: rgba(201,180,154,0.15);
+    }
+
+    .cal-cell.today {
+      color: var(--warm-tan);
+      font-weight: 500;
+      border: 1px solid rgba(201,180,154,0.4);
+    }
+
+    .cal-cell.taken {
+      color: rgba(250,248,245,0.18);
+      cursor: not-allowed;
+      text-decoration: line-through;
+      text-decoration-color: rgba(201,180,154,0.3);
+    }
+
+    .cal-cell.selected {
+      background: var(--warm-tan);
+      color: var(--dark) !important;
+      font-weight: 500;
+    }
+
+    .cal-cell.past {
+      color: rgba(250,248,245,0.12);
+      cursor: not-allowed;
+    }
+
+    /* TIME SLOTS */
+    .time-wrap {
+      margin-top: 32px;
+      display: none;
+    }
+
+    .time-wrap.visible { display: block; }
+
+    .time-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-tan);
+      margin-bottom: 16px;
+      text-align: left;
+      opacity: 0.8;
+    }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .time-slot {
+      padding: 12px 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+      color: var(--cream);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      background: none;
+      font-family: 'Jost', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .time-slot:hover:not(.slot-taken) {
+      border-color: var(--warm-tan);
+      color: var(--warm-tan);
+    }
+
+    .time-slot.slot-taken {
+      color: rgba(250,248,245,0.15);
+      border-color: rgba(255,255,255,0.04);
+      cursor: not-allowed;
+    }
+
+    .time-slot.slot-selected {
+      background: var(--warm-tan);
+      border-color: var(--warm-tan);
+      color: var(--dark);
+    }
+
+    /* BOOKING FORM */
+    .booking-form {
+      margin-top: 32px;
+      display: none;
+      text-align: left;
+    }
+
+    .booking-form.visible { display: block; }
+
+    .form-row {
+      margin-bottom: 16px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--cream);
+      padding: 14px 18px;
+      font-size: 14px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(250,248,245,0.3); }
+    .form-input:focus { border-color: var(--warm-tan); }
+
+    .btn-book {
+      width: 100%;
+      background: var(--warm-tan);
+      color: var(--dark);
+      border: none;
+      padding: 18px;
+      font-size: 11px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-book:hover { background: var(--nude); }
+
+    .booking-summary {
+      font-size: 13px;
+      color: var(--warm-tan);
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      border: 1px solid rgba(201,180,154,0.25);
+      text-align: left;
+      opacity: 0.9;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .success-msg.visible { display: block; }
+
+    .success-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .success-msg h3 {
+      font-family: 'Gilda Display', serif;
+      font-size: 32px;
+      
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .success-msg p {
+      font-size: 14px;
+      color: var(--warm-tan);
+      line-height: 1.8;
+    }
+
+    /* WHATSAPP */
+    .contact-bar {
+      background: var(--nude);
+      padding: 60px 24px;
+      text-align: center;
+    }
+
+    .contact-bar p {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 14px 32px;
+      font-size: 13px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-whatsapp:hover { background: #1ebe5c; transform: translateY(-1px); }
+
+    .wa-icon {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 24px;
+      text-align: center;
+      border-top: 1px solid var(--nude);
+    }
+
+    footer p {
+      font-size: 11px;
+      color: var(--warm-tan);
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: 10px; }
+      .section { padding: 72px 20px; }
+      .service-card { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .service-price { margin-left: 0; }
+      .booking-section { padding: 72px 20px; }
+      .calendar-wrap { padding: 24px 16px; }
+      .time-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ollá</a>
+  <ul class="nav-links">
+    <li><a href="#usluge">Usluge</a></li>
+    <li><a href="#zakazivanje">Zakazivanje</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Jovana Skorić · Belgrade</p>
+  <h1 class="hero-title">
+    Ollá
+    <span>Makeup Artist</span>
+  </h1>
+  <p class="hero-sub">Profesionalno sminkanje koje naglašava tvoju prirodnu lepotu.</p>
+  <a href="#zakazivanje" class="btn-primary">Zakaži termin</a>
+  <div class="hero-line"></div>
+</section>
+
+<!-- USLUGE -->
+<section class="section" id="usluge">
+  <p class="section-label">Šta nudim</p>
+  <h2 class="section-title">Usluge</h2>
+
+  <div class="service-card">
+    <div>
+      <div class="service-name">Profesionalno sminkanje</div>
+      <div class="service-desc">Soft glam, full glam, bridal, makeup za maturu i sve važne prilike — prilagođeno tebi</div>
+    </div>
+    <div class="service-price">60€</div>
+  </div>
+</section>
+
+<!-- ZAKAZIVANJE -->
+<section class="booking-section" id="zakazivanje">
+  <div class="booking-inner">
+    <p class="booking-label">Rezerviši svoje mesto</p>
+    <h2 class="booking-title">Zakaži termin</h2>
+    <p class="booking-sub">Izaberi datum i slobodan termin koji ti odgovara.</p>
+
+    <div class="calendar-wrap">
+      <div class="cal-header">
+        <button class="cal-nav" id="prevMonth">&#8249;</button>
+        <span class="cal-month" id="calMonthLabel"></span>
+        <button class="cal-nav" id="nextMonth">&#8250;</button>
+      </div>
+      <div class="cal-days-header">
+        <div class="cal-day-name">Pon</div>
+        <div class="cal-day-name">Uto</div>
+        <div class="cal-day-name">Sri</div>
+        <div class="cal-day-name">Čet</div>
+        <div class="cal-day-name">Pet</div>
+        <div class="cal-day-name">Sub</div>
+        <div class="cal-day-name">Ned</div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+    <div class="time-wrap" id="timeWrap">
+      <p class="time-label">Slobodni termini</p>
+      <div class="time-grid" id="timeGrid"></div>
+    </div>
+
+    <div class="booking-form" id="bookingForm">
+      <div class="booking-summary" id="bookingSummary"></div>
+      <div class="form-row">
+        <input type="text" class="form-input" id="inputName" placeholder="Ime i prezime" />
+      </div>
+      <div class="form-row">
+        <input type="text" class="form-input" id="inputAddress" placeholder="Adresa (ulica i broj)" />
+      </div>
+      <div class="form-row">
+        <input type="tel" class="form-input" id="inputPhone" placeholder="Broj telefona" />
+      </div>
+      <div class="form-row">
+        <input type="email" class="form-input" id="inputEmail" placeholder="Vaša email adresa (za potvrdu)" />
+      </div>
+      <button class="btn-book" id="btnBook">Potvrdi rezervaciju</button>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">✦</div>
+      <h3>Termin je rezervisan</h3>
+      <p id="successText"></p>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<div class="contact-bar" id="kontakt">
+  <p>Imaš pitanje? Slobodno mi piši na mejl.</p>
+  <a href="mailto:ollaamakeup@gmail.com" class="btn-whatsapp">
+    <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+    Pošalji mejl
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Ollá Makeup · Jovana Skorić · Beograd</p>
+</footer>
+
+<script>
+  // ---- PODACI: zauzeti termini ----
+  // Format: "YYYY-MM-DD": ["10:00", "14:00"] — dodaj ovde kada zakaže neko
+  const takenSlots = {
+    // Primer (obriši ili ostavi):
+    // "2026-06-25": ["10:00", "12:00"],
+  };
+
+  // Svi mogući termini u toku dana
+  const allSlots = ["07:00","09:30","12:00","14:30","17:00","19:30"];
+
+  // ---- KALENDAR ----
+  let currentDate = new Date();
+  let viewYear = currentDate.getFullYear();
+  let viewMonth = currentDate.getMonth();
+  let selectedDate = null;
+  let selectedTime = null;
+
+  const monthNames = ["Januar","Februar","Mart","April","Maj","Jun","Jul","Avgust","Septembar","Oktobar","Novembar","Decembar"];
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function dateKey(y, m, d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
+  function todayKey() {
+    return dateKey(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+  }
+
+  function renderCalendar() {
+    document.getElementById('calMonthLabel').textContent = `${monthNames[viewMonth]} ${viewYear}`;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+    const startOffset = (firstDay === 0) ? 6 : firstDay - 1;
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const daysInPrev = new Date(viewYear, viewMonth, 0).getDate();
+
+    const today = todayKey();
+
+    // Prethodni mesec (sivi)
+    for (let i = startOffset - 1; i >= 0; i--) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell';
+      cell.textContent = daysInPrev - i;
+      grid.appendChild(cell);
+    }
+
+    // Tekući mesec
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      const key = dateKey(viewYear, viewMonth, d);
+      const isPast = key < today;
+      const isToday = key === today;
+      const isSunday = new Date(viewYear, viewMonth, d).getDay() === 0;
+
+      cell.textContent = d;
+
+      if (isPast || isSunday) {
+        cell.className = 'cal-cell past';
+      } else {
+        cell.className = 'cal-cell current-month';
+        if (isToday) cell.classList.add('today');
+        if (key === selectedDate) cell.classList.add('selected');
+
+        cell.addEventListener('click', () => selectDate(key, cell));
+      }
+
+      grid.appendChild(cell);
+    }
+
+    // Sledeći mesec (sivi) — popuni do 42 ćelije
+    const total = grid.children.length;
+    const remaining = total < 35 ? 35 - total : (total < 42 ? 42 - total : 0);
+    for (let d = 1; d <= remaining; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell';
+      cell.textContent = d;
+      grid.appendChild(cell);
+    }
+  }
+
+  function selectDate(key, clickedCell) {
+    selectedDate = key;
+    selectedTime = null;
+
+    // Update calendar visual
+    document.querySelectorAll('.cal-cell.selected').forEach(c => c.classList.remove('selected'));
+    clickedCell.classList.add('selected');
+
+    renderTimeSlots(key);
+    document.getElementById('bookingForm').classList.remove('visible');
+    document.getElementById('successMsg').classList.remove('visible');
+  }
+
+  function renderTimeSlots(dateKey) {
+    const taken = takenSlots[dateKey] || [];
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '';
+
+    allSlots.forEach(time => {
+      const btn = document.createElement('button');
+      btn.className = 'time-slot';
+      btn.textContent = time;
+
+      if (taken.includes(time)) {
+        btn.classList.add('slot-taken');
+        btn.disabled = true;
+      } else {
+        btn.addEventListener('click', () => selectTime(time, btn, dateKey));
+      }
+
+      grid.appendChild(btn);
+    });
+
+    document.getElementById('timeWrap').classList.add('visible');
+  }
+
+  function selectTime(time, btn, date) {
+    selectedTime = time;
+    document.querySelectorAll('.time-slot.slot-selected').forEach(b => b.classList.remove('slot-selected'));
+    btn.classList.add('slot-selected');
+
+    // Format datuma za prikaz
+    const [y, m, d] = date.split('-');
+    const formatted = `${parseInt(d)}. ${monthNames[parseInt(m)-1]} ${y}`;
+    document.getElementById('bookingSummary').textContent = `📅  ${formatted}  ·  ${time}`;
+    document.getElementById('bookingForm').classList.add('visible');
+    document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Nav
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    viewMonth--;
+    if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  });
+
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    viewMonth++;
+    if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    renderCalendar();
+  });
+
+  // Rezervacija
+  document.getElementById('btnBook').addEventListener('click', async () => {
+    const name = document.getElementById('inputName').value.trim();
+    const address = document.getElementById('inputAddress').value.trim();
+    const phone = document.getElementById('inputPhone').value.trim();
+    const email = document.getElementById('inputEmail').value.trim();
+
+    if (!name || !address || !phone || !email) {
+      alert('Molim te popuni sva polja.');
+      return;
+    }
+
+    if (!selectedDate || !selectedTime) {
+      alert('Molim te izaberi datum i termin.');
+      return;
+    }
+
+    const [y, m, d] = selectedDate.split('-');
+    const formatted = `${parseInt(d)}. ${monthNames[parseInt(m)-1]} ${y}`;
+
+    const btn = document.getElementById('btnBook');
+    btn.textContent = 'Slanje...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xzdlzepy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: `Nova rezervacija — ${name} — ${formatted} u ${selectedTime}h`,
+          _replyto: email,
+          Ime: name,
+          Adresa: address,
+          Telefon: phone,
+          Email: email,
+          Datum: formatted,
+          Termin: selectedTime + 'h',
+          _autoresponse: `Zdravo ${name.split(' ')[0]},\n\nTvoja rezervacija je uspešno primljena! ✨\n\nDetalji:\nDatum: ${formatted}\nVreme: ${selectedTime}h\nAdresa: ${address}\n\nUskoro ću te kontaktirati za potvrdu.\n\nSrdačno,\nJovana — Ollá Makeup`
+        })
+      });
+
+      if (res.ok) {
+        document.getElementById('bookingForm').classList.remove('visible');
+        document.getElementById('timeWrap').classList.remove('visible');
+        const successText = `Vidimo se ${formatted} u ${selectedTime}h, ${name.split(' ')[0]}! ✨\nPotvrda je poslata na ${email}.`;
+        document.getElementById('successText').textContent = successText;
+        document.getElementById('successMsg').classList.add('visible');
+        document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        alert('Došlo je do greške. Pokušaj ponovo ili me kontaktiraj mejlom.');
+        btn.textContent = 'Potvrdi rezervaciju';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      alert('Nema internet konekcije. Pokušaj ponovo.');
+      btn.textContent = 'Potvrdi rezervaciju';
+      btn.disabled = false;
+    }
+  });
+
+  renderCalendar();
+</script>
+</body>
+</html>
